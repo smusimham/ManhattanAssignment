@@ -1,0 +1,162 @@
+---
+title: "Paper"
+author: "by Ramesh, Alexandra and Gino"
+date: "October 16, 2016"
+output: 
+    html_document:
+        keep_md:  true
+---
+
+```{r Analysis_01, include=FALSE, echo=FALSE, cache=FALSE}
+source ("~/Github/DataScienceLiveSessionAssignment06/Analysis/Analysis_01.R")
+```
+
+```{r Analysis_02, include=FALSE, echo=FALSE, cache=FALSE}
+source ("~/Github/DataScienceLiveSessionAssignment06/Analysis/Analysis_02.R")
+```
+
+```{r Analysis_03, include=FALSE, echo=FALSE, cache=FALSE}
+source ("~/Github/DataScienceLiveSessionAssignment06/Analysis/Analysis_03.R")
+```
+
+## Overview
+
+The purpose of this project is to download,read in building sales of borough manhatten and examine the sales data set. To further understand the data we split the data into building that we are going to perform our analysis ex. Family and Condos   
+
+## Family   
+
+Here was extracted builidings that are 1,2,3 bedroom family homes, we cleaned up the data to perform analysis on columns that have gross square feet, land square feet and price data avialble.
+
+* Below is the dimensions and a summary of the data set
+
+```{r summary, cache=FALSE}
+dim(mn.homes)
+str(mn.homes)
+```
+
+* 5 Number summary on Sales Price, Gross Square Feet and Land Square Feet
+```{r 5summary, cache=FALSE}
+summary(mn.homes$sale.price.n)
+summary(mn.homes$gross.sqft)
+summary(mn.homes$land.sqft)
+```
+
+## Histogram of Home Sale Price, Gross Square Feet and Land Square Feet
+
+```{r histogram, cache=FALSE}
+hist(log10(mn.homes$sale.price.n), main="Histogram of Home Sale Price", xlab="Log of Sales Price ")
+hist(log10(mn.homes$gross.sqft), main="Histogram of Home Gross Sqft", xlab="Log of Gross sqft ")
+hist(log10(mn.homes$land.sqft), main="Histogram of Home Land Sqft", xlab="Log of Land sqft ")
+```
+        
+From the histograms we can see that the log data sets are normally distributed for Sales price and Gross square feet, however the land square feet data is not normally distributed.       
+
+## 5 number summary on Home price per gross square feet and Home price per land square feet
+```{r 5summary_hg, cache=FALSE}
+summary(mn.homes$Price.per.gross.sqft)
+summary(mn.homes$Price.per.land.sqft)
+```
+
+## Sale Price vs Gross Square feet 
+
+
+```{r salesvsgross, cache=FALSE, echo=FALSE}
+plot(mn.homes$gross.sqft, mn.homes$sale.price.n/1000000, type="p", main = "Sale Price vs. Gross Square feet", xlab = "Gross Square Feet", ylab = "Sale Price in millions")
+```                   
+              
+              
+Note: From the above graph, we can see that most of the data points occur between 2000 Gross squarefeet and 5000 Gross squarefeet
+
+
+## Sale Price vs Land Square feet 
+
+
+```{r salesvsland, cache=FALSE, echo=FALSE}
+plot(mn.homes$land.sqft, mn.homes$sale.price.n/1000000, type="p", main = "Sale Price vs. Land Square feet", xlab = "Land Square Feet", ylab = "Sale Price in millions")
+```
+
+Note: From the plot, it makes sense, houses with a backyard is limited in Manhattan, mostly between 1000 to 4000 sqft.
+
+## Condos  
+
+Here was extracted builidings that are Condos, we cleaned up the data to perform analysis on columns that have gross square feet, land square feet and price data avialble. However condos data set did not have information on gross square feet and land square feet therefore they where excluded from our analysis
+
+* Below is the dimensions and a summary of the data set
+
+```{r summarycondos, cache=FALSE}
+dim(mn.condos)
+str(mn.condos)
+```
+
+* 5 Number summary on Sales Price
+```{r 5summarycondos, cache=FALSE}
+summary(mn.condos$sale.price.n)
+```
+
+## Histogram of Condo Sale Price
+
+```{r histogramcondos, cache=FALSE}
+hist(log10(mn.condos$sale.price.n), main="Histogram of Condo Sale Price", xlab="Log of Sales Price ")
+```
+
+
+## Rentals 
+
+Here was extracted builidings that are Rentals, we cleaned up the data to perform analysis on columns that have gross square feet, land square feet and price data avialble. 
+
+* Below is the dimensions and a summary of the data set
+
+```{r summary_r, cache=FALSE}
+dim(mn.rentals)
+str(mn.rentals)
+```
+
+* 5 Number summary on Sales Price, Gross Square Feet and Land Square Feet
+```{r 5summary_r, cache=FALSE}
+summary(mn.rentals$sale.price.n/10000)
+summary(mn.rentals$gross.sqft)
+summary(mn.rentals$land.sqft)
+```
+
+## Histogram of Home Sale Price, Gross Square Feet and Land Square Feet
+
+```{r histogram_r, cache=FALSE}
+hist(log10(mn.rentals$sale.price.n), main="Histogram of Rental property Sale Price", xlab="Log of Sales Price ")
+hist(log10(mn.rentals$gross.sqft), main="Histogram of Rental property Gross Sqft", xlab="Log of Gross sqft ")
+hist(log10(mn.rentals$land.sqft), main="Histogram of Rental property Land Sqft", xlab="Log of Land sqft ")
+```
+    
+
+From the histograms we can see that the log data sets are normally distributed for Sales price, however the and Gross square feet and land square feet data is skewed to the right.
+
+
+## 5 number summary on Home price per gross square feet and Home price per land square feet
+```{r 5summary_rg, cache=FALSE}
+summary(mn.rentals$Price.per.gross.sqft)
+summary(mn.rentals$Price.per.land.sqft)
+```
+
+
+
+## Log of Rental Price vs Log of Gross Square Feet
+```{r salesvsgross_r, cache=FALSE}
+plot(log10(mn.rentals$gross.sqft), log10(mn.rentals$sale.price.n), xlim = c(3,7), ylab = "Log of Sales price", xlab = "Log of gross sqft", main = "Rental Price vs Gross Square feet")
+```
+
+## Log of Rental Price vs Log of Land Square Feet
+```{r salesvsland_r, cache=FALSE}
+plot(log10(mn.rentals$land.sqft), log10(mn.rentals$sale.price.n), ylab = "Log of Sales price", xlab = "Log of land sqft", main = "Rental Price vs Land Square feet")
+```
+
+Note:         
+The Manhattan data analysis exercise provided a good understanding into basic capability of R to perform data cleaning, creating tidy data, and data analysis of various data points for meaningful insights. The Manhattan data set included various real estate class such as FAMILY, RENTAL, CONDOS, and much more, and the asset sizes in square footages, sale prices, and other demographic information. In this exercise, we have performed some basic analysis of selective classes of FAMILY, RENTAL and CONDOS in correlation with size and sale prices as below.   
+ 
+For building class “FAMILY”:       
+
+* We have observed strong correlation between sale price and gross square feet between 2000 and 5000 square foot homes – higher the square footage and higher the sale price. The mean square footage was 3886. However, there is no conclusive evidence of very strong correlation for the houses beyond 5000 square foot – this will require a more in depth analysis on condition of the home, year of sale and other variables.          
+* The histogram and summary functions on square footage shows 2/3rds of houses are within 2000 and 5000 square foot.          
+* The histogram and summary functions on sale prices shows 2/3rds of the houses are between $2M and $8M, with a mean of $6028000        
+* The histogram on sale price per gross square foot shows, 80% homes are <$2000 sq.ft      
+
+
+Similar conclusion can be drawn with RENTAL and CONDOS.
